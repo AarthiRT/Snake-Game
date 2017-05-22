@@ -1,0 +1,7 @@
+body {
+    background: #ABDFEC;
+    text-align: center;
+}
+canvas#snakeArea {
+    border: 1px dashed #106CAD;
+}
