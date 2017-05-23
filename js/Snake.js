@@ -1,14 +1,18 @@
 (function($){
 	var game = {};
-	$(document).ready(function(){
+	var keycodes ={
+			37 : 'left',
+			38 : 'up',
+			39 : 'right',
+			40 : 'down'
+	};
+	$(document).ready(function(){		
 		var snake = new game.createSnake('snakeArea',{interval:100, size:4});
 	});
-	document.onkeypress = function (event) {
-		alert(event.keyCode);
-	};
+	
 	
 	game.createSnake = function(canvasId, config){
-		var gameArea = document.getElementById(canvasId);
+		gameArea = document.getElementById(canvasId);
 		var components = new game.components(gameArea,config);	
 		game.initSnake(components);
 		game.drawSnake(gameArea,components);
@@ -16,6 +20,11 @@
 		setInterval(function(){
 			game.moveSnake(gameArea,components);
 		},components.settings.interval);
+		document.onkeydown = function (event) {
+			var keycode = event.keyCode;
+			components.direction = keycodes[keycode];
+			game.moveSnake(gameArea, components);
+		};
 	};
 	game.components = function(gameArea, config){
 		this.width = gameArea.width;
